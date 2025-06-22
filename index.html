@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор Малювання</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-container">
+    <header class="app-header">
+        <div class="toolbar">
+            <div class="tool-group">
+                <button class="tool-btn" data-tool="pencil" title="Олівець">✏️</button>
+                <button class="tool-btn" data-tool="pen" title="Ручка">🖌️</button>
+                <button class="tool-btn" data-tool="eraser" title="Гумка">🧽</button>
+                <button class="tool-btn" data-tool="fill" title="Заливка">🪣</button>
+                <button class="tool-btn" data-tool="rectangle" title="Прямокутник">🔲</button>
+                <button class="tool-btn" data-tool="curve" title="Крива">~</button>
+                <button class="tool-btn" data-tool="line" title="Лінія">/</button>
+                <button class="tool-btn" data-tool="circle" title="Коло">⭕</button>
+                <button class="tool-btn" data-tool="triangle" title="Трикутник">🔺</button>
+                <button class="tool-btn" data-tool="hexagon" title="Шестикутник">⬢</button>
+                <button class="tool-btn" data-tool="pentagon" title="П’ятикутник">⬟</button>
+                <button class="tool-btn" data-tool="star" title="Зірка">⭐</button>
+                <button class="tool-btn" data-tool="heart" title="Серце">❤️</button>
+                <button class="tool-btn" data-tool="diamond" title="Діамант">♦️</button>
+                <button class="tool-btn" data-tool="arrow" title="Стрілка">➡️</button>
+                <button class="tool-btn" data-tool="spray" title="Розпилювач">🖼️</button>
+            </div>
+
+            <div class="tool-group">
+                <label>КОЛІР</label>
+                <input type="color" id="color-picker" value="#000000">
+                <div class="rgb-picker">
+                    <input type="number" id="r-value" min="0" max="255" value="0">
+                    <input type="number" id="g-value" min="0" max="255" value="0">
+                    <input type="number" id="b-value" min="0" max="255" value="0">
+                </div>
+                <button class="tool-btn" id="gradient-btn" title="Градієнт">🌈</button>
+                <input type="color" id="gradient-color1" class="gradient-color-picker" value="#FF0000">
+                <input type="color" id="gradient-color2" class="gradient-color-picker" value="#0000FF">
+                <div id="gradient-preview" class="gradient-preview"></div>
+            </div>
+
+            <div class="tool-group">
+                <div class="slider-container">
+                    <label>ТОВЩИНА</label>
+                    <input type="range" id="line-width" min="1" max="100" value="5">
+                    <span id="width-value">5px</span>
+                </div>
+
+                <div class="slider-container">
+                    <label>Прозорість</label>
+                    <input type="range" id="opacity-slider" min="0" max="1" step="0.01" value="1">
+                    <span id="opacity-value">100%</span>
+                </div>
+
+                <select id="brush-shape">
+                    <option value="round">Круглий</option>
+                    <option value="square">Квадратний</option>
+                </select>
+            </div>
+
+            <div class="tool-group filter-controls">
+                <button class="filter-btn" id="grayscale-btn" title="Чорно-білий">Ч/Б</button>
+                <button class="filter-btn" id="invert-btn" title="Інверсія кольорів">Інверсія</button>
+            </div>
+
+            <div class="tool-group">
+                <button class="tool-btn wide-btn" id="clear-btn" title="Очистити">Очистити</button>
+                <button class="tool-btn" id="undo-btn" title="Скасувати">↩️</button>
+                <button class="tool-btn" id="redo-btn" title="Повернути">↪️</button>
+                <button class="tool-btn wide-btn" id="save-btn" title="Зберегти">Зберегти</button>
+                <button class="tool-btn" id="layers-btn" title="Шари">Шари</button>
+                <button class="tool-btn" id="dark-theme-btn" title="Темна тема">🌙</button>
+                <select id="save-format">
+                    <option value="png">PNG</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="svg">SVG</option>
+                </select>
+                <input type="file" id="load-image-btn" accept="image/*" style="display: none;">
+                <button class="tool-btn" onclick="document.getElementById('load-image-btn').click();" title="Завантажити зображення">📷</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div id="canvas-container" class="canvas-container">
+            <canvas id="drawing-canvas"></canvas>
+            <canvas id="preview-canvas" class="preview-canvas"></canvas>
+        </div>
+
+        <div class="layers-panel" id="layers-panel">
+            <div class="layers-header">
+                <h3>Шари</h3>
+                <div>
+                    <button id="add-layer" title="Додати шар">+</button>
+                    <button id="remove-layer" title="Видалити шар">-</button>
+                    <button id="merge-layers" title="Об'єднати шари">Об'єднати</button>
+                </div>
+            </div>
+            <div id="layers-list" class="layers-list"></div>
+        </div>
+    </div>
+
+    <div class="zoom-controls">
+        <button id="zoom-out">-</button>
+        <span id="zoom-level">100%</span>
+        <button id="zoom-in">+</button>
+    </div>
+
+    <div class="color-swatches-panel" id="color-swatches">
+        <div class="swatches-header">
+            <h4>Палітра кольорів</h4>
+            <button id="add-swatch" title="Додати колір">+</button>
+        </div>
+        <div id="swatches-grid" class="swatches-grid"></div>
+    </div>
+
+    <button class="tool-btn fullscreen-btn" id="fullscreen-btn" title="Повноекранний режим">🖥️</button>
+</div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
