@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід до системи | Редактор малювання</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box" id="login-box">
+        <h2>Вхід до системи</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">Ім'я користувача</label>
+                <input type="text" id="username" placeholder="Введіть ім'я користувача" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" placeholder="Введіть пароль" required>
+            </div>
+            <button type="submit" class="login-btn">Увійти</button>
+        </form>
+        <p class="error-message" id="login-error-message"></p>
+        <p class="signup-link">Немає акаунта? <a href="#" id="show-signup">Зареєструватися</a></p>
+    </div>
+
+    <div class="signup-box" id="signup-box" style="display: none;">
+        <h2>Реєстрація</h2>
+        <form id="signup-form">
+            <div class="input-group">
+                <label for="signup-username">Ім'я користувача</label>
+                <input type="text" id="signup-username" placeholder="Введіть ім'я користувача" required>
+            </div>
+            <div class="input-group">
+                <label for="signup-password">Пароль</label>
+                <input type="password" id="signup-password" placeholder="Введіть пароль" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Підтвердіть пароль</label>
+                <input type="password" id="confirm-password" placeholder="Підтвердіть пароль" required>
+            </div>
+            <button type="submit" class="login-btn">Зареєструватися</button>
+        </form>
+        <p class="error-message" id="signup-error-message"></p>
+        <p class="login-link">Вже є акаунт? <a href="#" id="show-login">Увійти</a></p>
+    </div>
+</div>
+<script src="auth.js"></script>
+</body>
+</html>
